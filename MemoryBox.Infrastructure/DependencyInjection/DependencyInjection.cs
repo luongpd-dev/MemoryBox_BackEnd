@@ -17,6 +17,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MemoryBox.Infrastructure.Authentication;
 using MemoryBox.Application.Mapper;
+using MemoryBox.Application.Services;
+using MemoryBox.Application.ServiceImplements;
 
 namespace MemoryBox.Infrastructure.DependencyInjection
 {
@@ -76,7 +78,9 @@ namespace MemoryBox.Infrastructure.DependencyInjection
         }
         public static void AddServices(this IServiceCollection services)
         {
-
+            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IRecipientService, RecipientService>();
+            services.AddScoped<IRoleService, RoleService>();
         }
 
         //AddAuthentication

@@ -49,32 +49,37 @@ namespace MemoryBox.Infrastructure.Data
         {
             base.OnModelCreating(builder);
             builder.Entity<Message>()
-                .HasOne(m => m.User)
+                .HasOne(m => m.Account)
                 .WithMany(u => u.Messages)
-                .HasForeignKey(m => m.UserId);
+                .HasForeignKey(m => m.AccountId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<MemoryBox.Domain.Entities.Attachment>()
                 .HasOne(a => a.Message)
                 .WithMany(m => m.Attachments)
-                .HasForeignKey(a => a.MessageId);
+                .HasForeignKey(a => a.MessageId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Recipient>()
                 .HasOne(r => r.Message)
                 .WithMany(m => m.Recipients)
-                .HasForeignKey(r => r.MessageId);
+                .HasForeignKey(r => r.MessageId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Notification>()
                 .HasOne(n => n.User)
                 .WithMany(u => u.Notifications)
-                .HasForeignKey(n => n.UserId);
+                .HasForeignKey(n => n.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Statistic>()
                .HasKey(s => s.StatId);
 
             builder.Entity<Statistic>()
-                .HasOne(s => s.User)
+                .HasOne(s => s.Account)
                 .WithOne()
-                .HasForeignKey<Statistic>(s => s.UserId);
+                .HasForeignKey<Statistic>(s => s.AccountId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
     }

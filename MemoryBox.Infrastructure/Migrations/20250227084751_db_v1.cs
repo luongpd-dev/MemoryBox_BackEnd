@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MemoryBox.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class db_v1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -164,7 +164,7 @@ namespace MemoryBox.Infrastructure.Migrations
                 columns: table => new
                 {
                     MessageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OpenDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -177,8 +177,8 @@ namespace MemoryBox.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Messages", x => x.MessageId);
                     table.ForeignKey(
-                        name: "FK_Messages_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Messages_AspNetUsers_AccountId",
+                        column: x => x.AccountId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -210,7 +210,7 @@ namespace MemoryBox.Infrastructure.Migrations
                 columns: table => new
                 {
                     StatId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TotalMessages = table.Column<int>(type: "int", nullable: false),
                     OpenedMessages = table.Column<int>(type: "int", nullable: false),
                     PendingMessages = table.Column<int>(type: "int", nullable: false),
@@ -221,8 +221,8 @@ namespace MemoryBox.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Statistics", x => x.StatId);
                     table.ForeignKey(
-                        name: "FK_Statistics_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Statistics_AspNetUsers_AccountId",
+                        column: x => x.AccountId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -315,9 +315,9 @@ namespace MemoryBox.Infrastructure.Migrations
                 column: "MessageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_UserId",
+                name: "IX_Messages_AccountId",
                 table: "Messages",
-                column: "UserId");
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notifications_UserId",
@@ -330,9 +330,9 @@ namespace MemoryBox.Infrastructure.Migrations
                 column: "MessageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Statistics_UserId",
+                name: "IX_Statistics_AccountId",
                 table: "Statistics",
-                column: "UserId",
+                column: "AccountId",
                 unique: true);
         }
 

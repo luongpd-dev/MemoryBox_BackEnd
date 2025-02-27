@@ -130,6 +130,9 @@ namespace MemoryBox.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -154,12 +157,9 @@ namespace MemoryBox.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("MessageId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("Messages");
                 });
@@ -250,6 +250,9 @@ namespace MemoryBox.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
 
@@ -265,12 +268,9 @@ namespace MemoryBox.Infrastructure.Migrations
                     b.Property<int>("TotalMessages")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("StatId");
 
-                    b.HasIndex("UserId")
+                    b.HasIndex("AccountId")
                         .IsUnique();
 
                     b.ToTable("Statistics");
@@ -392,13 +392,13 @@ namespace MemoryBox.Infrastructure.Migrations
 
             modelBuilder.Entity("MemoryBox.Domain.Entities.Message", b =>
                 {
-                    b.HasOne("MemoryBox.Domain.Entities.Account", "User")
+                    b.HasOne("MemoryBox.Domain.Entities.Account", "Account")
                         .WithMany("Messages")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("MemoryBox.Domain.Entities.Notification", b =>
@@ -425,13 +425,13 @@ namespace MemoryBox.Infrastructure.Migrations
 
             modelBuilder.Entity("MemoryBox.Domain.Entities.Statistic", b =>
                 {
-                    b.HasOne("MemoryBox.Domain.Entities.Account", "User")
+                    b.HasOne("MemoryBox.Domain.Entities.Account", "Account")
                         .WithOne()
-                        .HasForeignKey("MemoryBox.Domain.Entities.Statistic", "UserId")
+                        .HasForeignKey("MemoryBox.Domain.Entities.Statistic", "AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

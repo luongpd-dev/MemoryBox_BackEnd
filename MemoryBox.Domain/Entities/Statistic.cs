@@ -9,8 +9,8 @@ namespace MemoryBox.Domain.Entities
     public class Statistic
     {
         public Guid StatId { get; set; }
-        public Guid UserId { get; set; }
-        public Account User { get; set; }
+        public Guid AccountId { get; set; }
+        public virtual Account Account { get; set; }
         public int TotalMessages { get; set; } = 0;
         public int OpenedMessages { get; set; } = 0;
         public int PendingMessages { get; set; } = 0;

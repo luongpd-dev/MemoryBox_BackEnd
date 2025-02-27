@@ -10,7 +10,7 @@ namespace MemoryBox.Domain.Entities
     {
         public Guid AttachmentId { get; set; }
         public Guid MessageId { get; set; }
-        public Message Message { get; set; }
+        public virtual Message Message { get; set; }
         public string FilePath { get; set; }
         public string FileType { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

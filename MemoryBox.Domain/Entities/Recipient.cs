@@ -11,7 +11,7 @@ namespace MemoryBox.Domain.Entities
     {
         public Guid RecipientId { get; set; }
         public Guid MessageId { get; set; }
-        public Message Message { get; set; }
+        public virtual Message Message { get; set; }
         public string Email { get; set; }
         public DateTimeOffset CreatedAt { get; set; } = CoreHelper.SystemTimeNow;
         public DateTimeOffset UpdatedAt { get; set; } = CoreHelper.SystemTimeNow;
