@@ -13,7 +13,7 @@ namespace MemoryBox.Application.Services
         Task<MessageResponse> GetMessageById(Guid id);
         Task<IEnumerable<MessageResponse>> GetMessages();
         Task<MessageResponse> CreateMessage (MessageRequest messageRequest);
-        Task<MessageResponse> UpdateMessage (UpdateMessageRequest messageRequest);
+        Task<MessageResponse> UpdateMessage(Guid id, UpdateMessageRequest messageRequest);
         Task<bool> DeleteMessage (Guid id);
     }
 }

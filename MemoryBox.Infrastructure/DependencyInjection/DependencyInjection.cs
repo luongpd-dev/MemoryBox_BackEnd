@@ -81,6 +81,7 @@ namespace MemoryBox.Infrastructure.DependencyInjection
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IRecipientService, RecipientService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped <INotificationService, NotificationService>();
         }
 
         //AddAuthentication

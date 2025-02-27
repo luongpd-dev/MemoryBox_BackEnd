@@ -15,7 +15,7 @@ namespace MemoryBox.Application.Services
         Task<RecipientResponse> GetRecipientById(Guid id);
         Task<IEnumerable<RecipientResponse>> GetRecipients();
         Task<RecipientResponse> CreateRecipient(RecipientRequest request);
-        Task<RecipientRequest> UpdateRecipient(UpdateRecipientRequest request);
+        Task<RecipientResponse> UpdateRecipient(Guid id, UpdateRecipientRequest request);
         Task<bool> DeleteRecipient(Guid id);
     }
 }

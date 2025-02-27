@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MemoryBox.Domain.Entities
@@ -12,6 +13,7 @@ namespace MemoryBox.Domain.Entities
     {
         public Guid MessageId { get; set; }
         public Guid AccountId { get; set; }
+        [JsonIgnore]
         public virtual Account Account { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }

@@ -41,7 +41,7 @@ namespace MemoryBox.WebAPI.Controllers
         [HttpPut("update/{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateMessageRequest request)
         {
-            var updatedMessage = await _messageService.UpdateMessage(request);
+            var updatedMessage = await _messageService.UpdateMessage(id, request);
             return CustomResult("Message updated successfully", updatedMessage);
         }
 
