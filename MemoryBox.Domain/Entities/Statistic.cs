@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MemoryBox.Domain.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,6 @@ namespace MemoryBox.Domain.Entities
         public int OpenedMessages { get; set; } = 0;
         public int PendingMessages { get; set; } = 0;
         public int MissedMessages { get; set; } = 0;
-        public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
+        public DateTimeOffset LastUpdated { get; set; } = CoreHelper.SystemTimeNow;
     }
 }

@@ -13,7 +13,6 @@ namespace MemoryBox.Application.ViewModels.Response.Recipients
     {
         public Guid RecipientId { get; set; }
         public Guid MessageId { get; set; }
-        public Message Message { get; set; }
         public string Email { get; set; }
         public DateTimeOffset CreatedAt { get; set; } 
         public DateTimeOffset UpdatedAt { get; set; } 

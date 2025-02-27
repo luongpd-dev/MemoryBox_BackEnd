@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MemoryBox.Domain.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MemoryBox.Domain.Entities
@@ -10,9 +12,10 @@ namespace MemoryBox.Domain.Entities
     {
         public Guid AttachmentId { get; set; }
         public Guid MessageId { get; set; }
+        [JsonIgnore]
         public virtual Message Message { get; set; }
         public string FilePath { get; set; }
         public string FileType { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTimeOffset CreatedAt { get; set; } = CoreHelper.SystemTimeNow;
     }
 }

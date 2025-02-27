@@ -80,9 +80,9 @@ namespace MemoryBox.Application.ServiceImplements
 
 
         //Update
-        public async Task<MessageResponse> UpdateMessage(UpdateMessageRequest messageRequest)
+        public async Task<MessageResponse> UpdateMessage(Guid id, UpdateMessageRequest messageRequest)
         {
-            var message = await _unitOfWork.MessageRepository.GetByIdAsync(messageRequest.MessageId);
+            var message = await _unitOfWork.MessageRepository.GetByIdAsync(id);
             if (message == null)
             {
                 throw new CustomException.DataNotFoundException("Message not found");
