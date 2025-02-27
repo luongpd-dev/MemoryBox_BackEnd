@@ -10,7 +10,7 @@ namespace MemoryBox.Domain.Entities
     {
         public Guid NotificationId { get; set; }
         public Guid UserId { get; set; }
-        public Account User { get; set; }
+        public virtual Account User { get; set; }
         public string Status { get; set; } = "Pending";
         public DateTime SendAt { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
