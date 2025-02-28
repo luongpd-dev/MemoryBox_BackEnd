@@ -19,6 +19,7 @@ using MemoryBox.Infrastructure.Authentication;
 using MemoryBox.Application.Mapper;
 using MemoryBox.Application.Services;
 using MemoryBox.Application.ServiceImplements;
+using MemoryBox.Infrastructure.Integrations.Firebase;
 
 namespace MemoryBox.Infrastructure.DependencyInjection
 {
@@ -81,7 +82,9 @@ namespace MemoryBox.Infrastructure.DependencyInjection
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IRecipientService, RecipientService>();
             services.AddScoped<IRoleService, RoleService>();
-            services.AddScoped <INotificationService, NotificationService>();
+            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IAccountService, AccountService>();
+
         }
 
         //AddAuthentication
@@ -158,6 +161,7 @@ namespace MemoryBox.Infrastructure.DependencyInjection
         //External
         public static void AddExternalServices(this IServiceCollection services)
         {
+            services.AddScoped<IFirebaseConfig, FirebaseConfig>();
         }
 
         //PayOS
