@@ -80,6 +80,34 @@ namespace MemoryBox.Infrastructure.Data
                 .WithOne()
                 .HasForeignKey<Statistic>(s => s.AccountId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // Quan hệ giữa UserSubscription và Account (1 user có thể có 1 gói)
+            builder.Entity<AccountSubscription>()
+                .HasOne(us => us.Account)
+                .WithMany(a => a.AccountSubscriptions)
+                .HasForeignKey(us => us.AccountId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Quan hệ giữa UserSubscription và SubscriptionPlan (Mỗi UserSubscription thuộc về 1 gói)
+            builder.Entity<AccountSubscription>()
+                .HasOne(us => us.Plan)
+                .WithMany()
+                .HasForeignKey(us => us.SubscriptionPlanId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Quan hệ giữa PaymentTransaction và Account (1 user có nhiều giao dịch)
+            builder.Entity<PaymentTransaction>()
+                .HasOne(pt => pt.Account)
+                .WithMany(a => a.PaymentTransactions)
+                .HasForeignKey(pt => pt.AccountId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Quan hệ giữa PaymentTransaction và SubscriptionPlan (Mỗi giao dịch thuộc về 1 gói)
+            builder.Entity<PaymentTransaction>()
+                .HasOne(pt => pt.Plan)
+                .WithMany()
+                .HasForeignKey(pt => pt.SubscriptionPlanId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
     }

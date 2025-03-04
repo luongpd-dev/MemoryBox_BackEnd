@@ -15,5 +15,7 @@ namespace MemoryBox.Domain.Entities
 
         public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
         public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
+        public virtual ICollection<AccountSubscription> AccountSubscriptions { get; set; } = new List<AccountSubscription>();
+        public virtual ICollection<PaymentTransaction> PaymentTransactions { get; set; } = new List<PaymentTransaction>();
     }
 }

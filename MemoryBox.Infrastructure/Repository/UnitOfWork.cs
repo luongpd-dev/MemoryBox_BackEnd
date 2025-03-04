@@ -23,6 +23,35 @@ namespace MemoryBox.Infrastructure.Repository
         private IGenericRepository<Recipient> _recipientRepository;
         private IGenericRepository<Role> _roleRepository;
         private IGenericRepository<Statistic> _statisticRepository;
+        private IGenericRepository<AccountSubscription> _accountSubscriptionRepository;
+        private IGenericRepository<SubscriptionPlan> _subscriptionPlanRepository;
+        private IGenericRepository<PaymentTransaction> _paymentTransactionRepository;
+
+
+        public IGenericRepository<PaymentTransaction> PaymentTransactionRepository
+        {
+            get
+            {
+
+                if (_paymentTransactionRepository == null)
+                {
+                    _paymentTransactionRepository = new GenericRepository<PaymentTransaction>(_context);
+                }
+                return _paymentTransactionRepository;
+            }
+        }
+        public IGenericRepository<SubscriptionPlan> SubscriptionPlanRepository
+        {
+            get
+            {
+
+                if (_subscriptionPlanRepository == null)
+                {
+                    _subscriptionPlanRepository = new GenericRepository<SubscriptionPlan>(_context);
+                }
+                return _subscriptionPlanRepository;
+            }
+        }
 
         public IGenericRepository<Account> AccountRepository
         {
@@ -36,6 +65,22 @@ namespace MemoryBox.Infrastructure.Repository
                 return _accountRepository;
             }
         }
+
+        public IGenericRepository<AccountSubscription> AccountSubscriptionRepository
+        {
+            get
+            {
+
+                if (_accountSubscriptionRepository == null)
+                {
+                    _accountSubscriptionRepository = new GenericRepository<AccountSubscription>(_context);
+                }
+                return _accountSubscriptionRepository;
+            }
+        }
+
+
+
 
         public IGenericRepository<Attachment> AttachmentRepository
         {

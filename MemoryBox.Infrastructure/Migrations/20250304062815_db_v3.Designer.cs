@@ -4,6 +4,7 @@ using MemoryBox.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoryBox.Infrastructure.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250304062815_db_v3")]
+    partial class db_v3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,36 +98,6 @@ namespace MemoryBox.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("MemoryBox.Domain.Entities.AccountSubscription", b =>
-                {
-                    b.Property<Guid>("AccountSubscriptionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("ExpiryDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset>("StartDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("SubscriptionPlanId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("AccountSubscriptionId");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("SubscriptionPlanId");
-
-                    b.ToTable("AccountSubscription");
                 });
 
             modelBuilder.Entity("MemoryBox.Domain.Entities.Attachment", b =>
@@ -375,6 +348,36 @@ namespace MemoryBox.Infrastructure.Migrations
                     b.ToTable("SubscriptionPlan");
                 });
 
+            modelBuilder.Entity("MemoryBox.Domain.Entities.UserSubscription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("ExpiryDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("StartDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("SubscriptionPlanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("SubscriptionPlanId");
+
+                    b.ToTable("UserSubscription");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
@@ -478,25 +481,6 @@ namespace MemoryBox.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MemoryBox.Domain.Entities.AccountSubscription", b =>
-                {
-                    b.HasOne("MemoryBox.Domain.Entities.Account", "Account")
-                        .WithMany("AccountSubscriptions")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MemoryBox.Domain.Entities.SubscriptionPlan", "Plan")
-                        .WithMany()
-                        .HasForeignKey("SubscriptionPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
-                    b.Navigation("Plan");
-                });
-
             modelBuilder.Entity("MemoryBox.Domain.Entities.Attachment", b =>
                 {
                     b.HasOne("MemoryBox.Domain.Entities.Message", "Message")
@@ -571,6 +555,25 @@ namespace MemoryBox.Infrastructure.Migrations
                     b.Navigation("Account");
                 });
 
+            modelBuilder.Entity("MemoryBox.Domain.Entities.UserSubscription", b =>
+                {
+                    b.HasOne("MemoryBox.Domain.Entities.Account", "Account")
+                        .WithMany("UserSubscriptions")
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MemoryBox.Domain.Entities.SubscriptionPlan", "Plan")
+                        .WithMany()
+                        .HasForeignKey("SubscriptionPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Plan");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("MemoryBox.Domain.Entities.Role", null)
@@ -624,13 +627,13 @@ namespace MemoryBox.Infrastructure.Migrations
 
             modelBuilder.Entity("MemoryBox.Domain.Entities.Account", b =>
                 {
-                    b.Navigation("AccountSubscriptions");
-
                     b.Navigation("Messages");
 
                     b.Navigation("Notifications");
 
                     b.Navigation("PaymentTransactions");
+
+                    b.Navigation("UserSubscriptions");
                 });
 
             modelBuilder.Entity("MemoryBox.Domain.Entities.Message", b =>

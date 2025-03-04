@@ -16,6 +16,9 @@ namespace MemoryBox.Domain.Interfaces
         public IGenericRepository<Recipient> RecipientRepository { get; }
         public IGenericRepository<Role> RoleRepository { get; }
         public IGenericRepository<Statistic> StatisticRepository { get; }
+        public IGenericRepository<PaymentTransaction> PaymentTransactionRepository { get; }
+        public IGenericRepository<AccountSubscription> AccountSubscriptionRepository { get; }
+        public IGenericRepository<SubscriptionPlan> SubscriptionPlanRepository { get; }
 
         void Save();
         Task SaveAsync();
