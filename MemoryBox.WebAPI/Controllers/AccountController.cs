@@ -1,6 +1,7 @@
 ﻿using CoreApiResponse;
 using MemoryBox.Application.Services;
 using MemoryBox.Application.ViewModels.Request.Accounts;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MemoryBox.WebAPI.Controllers
@@ -41,11 +42,49 @@ namespace MemoryBox.WebAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginRequest request)
+        public async Task<IActionResult> Login(Application.ViewModels.Request.Accounts.LoginRequest request)
         {
 
             var results = await _accountService.Login(request);
             return CustomResult("Đăng nhập thành công.", results);
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(Application.ViewModels.Request.Accounts.RegisterRequest request)
+        {
+            var results = await _accountService.RegisterUser(request);
+            return CustomResult("Tạo tài khoản thành công. Vui lòng kiểm tra email để xác nhận tài khoản trước khi đăng nhập.", results);
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
+        {
+
+            await _accountService.ForgotPasswordAsync(request.Email);
+            return CustomResult("Email khôi phục mật khẩu đã được gửi.");
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+        {
+
+            await _accountService.ResetPasswordAsync(request);
+            return CustomResult("Đặt lại mật khẩu thành công.");
+
+        }
+
+        [HttpPost("verify-OTP")]
+        public async Task<IActionResult> VerifyOTP(string email, string otp)
+        {
+            var result = await _accountService.VerifyOtpAsync(email, otp);
+            return CustomResult("Xác thực OTP thành công.", result);
+        }
+
+        [HttpPost("resend-OTP")]
+        public async Task<IActionResult> ResendOTP(string email)
+        {
+            var result = await _accountService.ResendOtpAsync(email);
+            return CustomResult("OTP đã được gửi lại.", result);
         }
     }
 }
