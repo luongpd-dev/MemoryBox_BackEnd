@@ -20,6 +20,8 @@ using MemoryBox.Application.Mapper;
 using MemoryBox.Application.Services;
 using MemoryBox.Application.ServiceImplements;
 using MemoryBox.Infrastructure.Integrations.Firebase;
+using MemoryBox.Domain.Interfaces.Email;
+using MemoryBox.Infrastructure.Integrations.Email;
 
 namespace MemoryBox.Infrastructure.DependencyInjection
 {
@@ -162,6 +164,7 @@ namespace MemoryBox.Infrastructure.DependencyInjection
         public static void AddExternalServices(this IServiceCollection services)
         {
             services.AddScoped<IFirebaseConfig, FirebaseConfig>();
+            services.AddScoped<ISendMail, SendMail>();
         }
 
         //PayOS
