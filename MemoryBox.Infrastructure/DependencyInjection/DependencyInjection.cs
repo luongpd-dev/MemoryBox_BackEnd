@@ -84,6 +84,10 @@ namespace MemoryBox.Infrastructure.DependencyInjection
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IVNPayService, VNPayService>();
+            services.AddScoped<IAccountSubscriptionService, AccountSubscriptionService>();
+            services.AddScoped<ISubscriptionPlanService, SubscriptionPlanService>();
+            services.AddScoped<IPaymentTransactionService, PaymentTransactionService>();
 
         }
 
